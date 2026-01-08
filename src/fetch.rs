@@ -194,8 +194,8 @@ impl Fetcher {
                 })?;
 
             // Handle redirects manually to re-check SSRF
-            if response.status().is_redirection()
-                && let Some(location) = response.headers().get("location") {
+            if response.status().is_redirection() {
+                if let Some(location) = response.headers().get("location") {
                     let location_str = location
                         .to_str()
                         .map_err(|_| MdwnError::FetchFailed("Invalid redirect location".to_string()))?;
@@ -210,12 +210,14 @@ impl Fetcher {
 
                     return self.fetch_with_redirects(&redirect_url, redirect_count + 1).await;
                 }
+            }
 
             // Check content length before reading body
-            if let Some(content_length) = response.content_length()
-                && content_length as usize > self.config.max_content_length {
+            if let Some(content_length) = response.content_length() {
+                if content_length as usize > self.config.max_content_length {
                     return Err(MdwnError::TooLarge(self.config.max_content_length));
                 }
+            }
 
             // Check status code
             let status = response.status();

@@ -33,8 +33,8 @@ pub fn parse_html_for_markdown_link(html: &str, base_url: &Url) -> Result<HtmlPa
 
         // Check for markdown MIME types (case-insensitive)
         let link_type_lower = link_type.to_lowercase();
-        if (link_type_lower == "text/markdown" || link_type_lower == "text/x-markdown")
-            && let Some(href) = link.value().attr("href") {
+        if link_type_lower == "text/markdown" || link_type_lower == "text/x-markdown" {
+            if let Some(href) = link.value().attr("href") {
                 // Resolve relative URL against base
                 let markdown_url = effective_base
                     .join(href)
@@ -42,6 +42,7 @@ pub fn parse_html_for_markdown_link(html: &str, base_url: &Url) -> Result<HtmlPa
 
                 return Ok(HtmlParseResult::MarkdownLink(markdown_url));
             }
+        }
     }
 
     // No markdown link found
