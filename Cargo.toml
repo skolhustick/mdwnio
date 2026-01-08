@@ -56,7 +56,7 @@ thiserror = "2"
 anyhow = "1"
 
 # IP address handling
-ipnetwork = "0.20"
+ipnetwork = "0.21"
 
 [profile.release]
 lto = true
