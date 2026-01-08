@@ -33,7 +33,7 @@ reqwest = { version = "0.12", default-features = false, features = [
 futures-util = "0.3"
 
 # HTML parsing & conversion
-scraper = "0.22"
+scraper = "0.25"
 readability = "0.3"
 htmd = "0.1"
 
