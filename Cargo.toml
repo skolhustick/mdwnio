@@ -35,7 +35,7 @@ futures-util = "0.3"
 # HTML parsing & conversion
 scraper = "0.22"
 readability = "0.3"
-htmd = "0.1"
+htmd = "0.5"
 
 # JSON & serialization
 serde = { version = "1", features = ["derive"] }
